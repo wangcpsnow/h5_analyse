@@ -51,7 +51,7 @@ function utils(dir = DIR, relys = "") {
 		if (stats.isDirectory()) {
 			results = results.concat(utils(file_path, path));
 		} else {
-			relys && results.push(path);
+			relys && path.indexOf(".js") > 0 && results.push(path);
 		}
 	});
 	return results;
