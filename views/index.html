@@ -4,17 +4,33 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
+    <style>
+        #utils{
+            margin:20px 0;
+        }
+        ul{
+            overflow: hidden;;
+        }
+        li{width:40%;float:left;}
+    </style>
 </head>
 
 <body>
     <input type="text" placeholder="输入文件最大值" id="txtMax" />
     <input type="button" value="Click me to rerender" id="change" />
     <div id="maxsize" style="width: 100%;height:400px;"></div>
+
+    <div id="utils">
+        <h2 style="text-align: center;">公共组建中一次没被引用的文件</h2>
+        <ul></ul>
+    </div>
+    
     <div id="req" style="width: 100%;height:3000px;"></div>
+    <script src="jquery-2.1.4.js"></script>
     <script src="echarts.min.js"></script>
     <script>
     var $data = <%- JSON.stringify(data);%>;
-    // console.info($data);
+    var $utils = <%- JSON.stringify(utils);%>;
     </script>
     <script src="main.js"></script>
 </body>

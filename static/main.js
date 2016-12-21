@@ -1,9 +1,11 @@
 var max_size = 15;
 
 var internal = {
+    results: {},
     init: function() {
         internal.draw();
         internal.bindEvent();
+        internal.showUtils();
     },
     draw: function(msize) {
         var maxsize = msize || max_size;
@@ -29,6 +31,7 @@ var internal = {
         }
         internal.showMaxChart(xData, yData, maxsize);
         if (!msize) {
+            internal.results = results;
             internal.showRequireChart(results);
         }
     },
@@ -105,6 +108,18 @@ var internal = {
             }]
         };
         reqChart.setOption(option);
+    },
+    showUtils: function() {
+        var results = Object.keys(internal.results),
+            arr = [];
+        $utils.forEach(function(util) {
+            util = util.replace(".js", "");
+            results.includes(util) || arr.push(util);
+        });
+        var $ul = $("#utils ul");
+        arr.forEach(function(item) {
+            $ul.append("<li>" + item + "</li>")
+        })
     }
 }
 

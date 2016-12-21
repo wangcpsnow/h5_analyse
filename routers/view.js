@@ -1,12 +1,13 @@
 /**
  * 
  */
-var api = require("../api");
+var API = require("../api");
 
 module.exports = function(Router) {
 	Router.get("/", function(req, res, next) {
 		res.render("index",{
-			data: api()
+			data: API.core(),
+			utils: API.utils()
 		});
 	});
 	return Router;

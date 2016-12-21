@@ -3,11 +3,14 @@
  * @param  {[type]} Router [description]
  * @return {[type]}        [description]
  */
-var api = require("../api");
+var API = require("../api");
 
 module.exports = function(Router) {
 	Router.get("/api/all", function(req, res, next) {
-		res.json(api());
+		res.json(API.core());
+	});
+	Router.get("/api/utils", function(req, res, next) {
+		res.json(API.utils());
 	});
 	return Router;
 }
