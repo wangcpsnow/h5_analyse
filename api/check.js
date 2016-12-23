@@ -1,7 +1,7 @@
 let fs = require("fs"),
     config = require("../config"),
     DIR = config.DIR,
-    reg = /\s*(\S*?)\s*=\s*require\(.*?\)/gi;
+    reg = /\s*,?(\S*?)\s*=\s*require\(['"](.*?)['"]\)/gi;
 
 function check(dir = DIR) {
     let result = {};
@@ -11,7 +11,7 @@ function check(dir = DIR) {
             stats = fs.statSync(file_path);
         if (stats.isDirectory()) {
             result[file] = check(file_path);
-        } else {
+        } else if(file.endsWith(".js")) {
             let filedata = fs.readFileSync(file_path, "utf-8");
             while (res = reg.exec(filedata)) {
                 if (res[1] != "$" && filedata.indexOf(res[1] + ".") < 0) {
@@ -19,7 +19,7 @@ function check(dir = DIR) {
                 		continue;
                 	}
                     result[file] = result[file] || [];
-                    result[file].push(res[1]);
+                    result[file].push(res[2]);
                 }
             }
         }
