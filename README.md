@@ -2,6 +2,8 @@
 
 > 分析H5站业务逻辑文件
 
+分析目录是在config/ 文件下配置,目的仅限于分析require.js lithe.js等使用require("***")引用的模块化项目
+
 ## Usage
 
 ```
