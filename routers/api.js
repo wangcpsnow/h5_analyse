@@ -12,5 +12,8 @@ module.exports = function(Router) {
 	Router.get("/api/utils", function(req, res, next) {
 		res.json(API.utils());
 	});
+	Router.get("/api/check", function(req, res, next) {
+		res.json(API.check());
+	});
 	return Router;
 }

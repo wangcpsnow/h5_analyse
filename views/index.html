@@ -25,12 +25,18 @@
         <ul></ul>
     </div>
     
+    <div id="checks">
+        <h2 style="text-align: center;">引用了公共组建但没使用</h2>
+        <ul></ul>
+    </div>
+
     <div id="req" style="width: 100%;height:3000px;"></div>
     <script src="jquery-2.1.4.js"></script>
     <script src="echarts.min.js"></script>
     <script>
     var $data = <%- JSON.stringify(data);%>;
     var $utils = <%- JSON.stringify(utils);%>;
+    var $checks = <%- JSON.stringify(checks);%>;
     </script>
     <script src="main.js"></script>
 </body>

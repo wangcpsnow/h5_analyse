@@ -1,4 +1,14 @@
 var max_size = 15;
+Array.isArray = Array.isArray || function(args) {
+    Object.prototype.toString.call(args) == "[object Array]";
+}
+
+function isEmpty(obj) {
+    for (var key in obj) {
+        return false;
+    }
+    return true;
+}
 
 var internal = {
     results: {},
@@ -6,6 +16,7 @@ var internal = {
         internal.draw();
         internal.bindEvent();
         internal.showUtils();
+        internal.showChecks();
     },
     draw: function(msize) {
         var maxsize = msize || max_size;
@@ -120,6 +131,20 @@ var internal = {
         arr.forEach(function(item) {
             $ul.append("<li>" + item + "</li>")
         })
+    },
+    showChecks: function() {
+        $("#checks ul").html(internal._check($checks,""));
+    },
+    _check: function(obj, prefix) {
+        var res = "";
+        for (var key in obj) {
+            if (Array.isArray(obj[key]) && obj[key].length) {
+                res += "<li>" + prefix + key + ":" + obj[key].join(",") + "</li>"
+            } else {
+                res += internal._check(obj[key], prefix + key + "/");
+            }
+        }
+        return res;
     }
 }
 
