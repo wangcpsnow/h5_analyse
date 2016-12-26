@@ -20,11 +20,11 @@ module.exports = {
     ],
     module: {
         loaders: [
-            { test: /\.js?$/, loaders: ['react-hot', 'babel'], exclude: /node_modules/ },
-            { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' }
+            // { test: /\.js[x]?$/, loaders: ['react-hot', 'babel'], exclude: /node_modules/ },
+            { test: /\.js[x]?$/,include: path.resolve(__dirname, 'clients'), exclude: /node_modules/, loader: 'babel-loader' }
         ]
     },
     resolve:{
-         extensions:['','.js','.json']
+         extensions:['','.js','.jsx']
     }
 }
