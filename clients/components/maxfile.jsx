@@ -1,3 +1,7 @@
+/**
+ * title: 超过15K的业务逻辑的js文件
+ * author: wangchunpeng
+ */
 import React from 'react';
 
 class MaxFile extends React.Component{
@@ -5,16 +9,22 @@ class MaxFile extends React.Component{
 		super(props);
 		this.state = {
 			loaded: false,
-			maxsize: 15
+			maxsize: 15,
+			data: {}
 		};
 	}
 	componentWillMount() {
-		let maxsize = this.state.maxsize;
+		this._load_data();
+	}
+	_load_data() {
+		let self = this,
+			maxsize = this.state.maxsize;
 		new Promise(function(resolve,reject){
 			$.ajax({
 				url: "/api/all",
 				type: "GET",
 				success: function(data){
+
 					resolve(data);
 				},
 				error: function() {
@@ -35,29 +45,34 @@ class MaxFile extends React.Component{
 	        }
 	        return {xData,yData};
 		}).then(function(obj){
-			var maxChart = echarts.init(document.getElementById('maxsize'));
-	        var option = {
-	            title: {
-	                text: 'H5站 业务逻辑文件超过' + maxsize + 'K 文件列表',
-	                x: "center"
-	            },
-	            tooltip: {},
-	            xAxis: {
-	                data: obj.xData
-	            },
-	            yAxis: {
-	                type: 'value'
-	            },
-	            series: [{
-	                name: '文件大小',
-	                type: 'bar',
-	                data: obj.yData
-	            }]
-	        };
-	        maxChart.setOption(option);
+			self.setState({data: obj,loaded: true});
+			self._show_chart();
 		}).catch(function(err){
 			alert(err.message);
 		});
+	}
+	_show_chart() {
+		let obj = this.state.data;
+		var maxChart = echarts.init(document.getElementById('maxsize'));
+        var option = {
+            title: {
+                text: 'H5站 业务逻辑文件超过' + maxsize + 'K 文件列表',
+                x: "center"
+            },
+            tooltip: {},
+            xAxis: {
+                data: obj.xData
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [{
+                name: '文件大小',
+                type: 'bar',
+                data: obj.yData
+            }]
+        };
+        maxChart.setOption(option);
 	}
 	render() {
 		let dstyle = {
