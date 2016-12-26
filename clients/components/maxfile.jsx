@@ -52,7 +52,8 @@ class MaxFile extends React.Component{
 		});
 	}
 	_show_chart() {
-		let obj = this.state.data;
+		let obj = this.state.data,
+			maxsize = this.state.maxsize;
 		var maxChart = echarts.init(document.getElementById('maxsize'));
         var option = {
             title: {
