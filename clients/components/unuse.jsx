@@ -43,6 +43,7 @@
  	render() {
  		return (
  			<div id="checks">
+ 				<h2 className="center">引用了公共组建，但是没使用</h2>
  				<ul></ul>
  			</div>
  		)
