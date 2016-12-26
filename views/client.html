@@ -1,11 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<title>client</title>
+    <meta charset="UTF-8">
+    <title>client</title>
+    <style>
+    	li{
+    		list-style: none;
+    	}
+    	.center{
+    		text-align: center;
+    	}
+    	nav ul{
+    		display: flex;
+    	}
+		nav li{
+			flex-grow: 1;text-align:center;
+			border-bottom: 1px solid silver;
+			cursor: pointer;
+			line-height: 25px;
+		}
+		nav li.active{
+			border-left:1px solid silver;
+			border-right:1px solid silver;
+			border-top: 2px solid red;
+			border-bottom:0 none;
+		}
+    </style>
 </head>
+
 <body>
-	<div id="main"></div>
-	<script src="bundle.js"></script>
+	<h1 class="center">H5站分析报告</h1>
+    <div id="main"></div>
+    <script src="jquery-2.1.4.js"></script>
+    <script src="echarts.min.js"></script>
+    <script src="bundle.js"></script>
 </body>
+
 </html>
