@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import MaxFile from "./components/maxfile.jsx"
 import ReqFile from "./components/reqfile.jsx"
 import UnUse from "./components/unuse.jsx"
+import CmFile from "./components/cmfile.jsx"
 
 class Main extends React.Component{
 	constructor(props) {
@@ -27,6 +28,8 @@ class Main extends React.Component{
 				Child = ReqFile;break;
 			case "unuse":
 				Child = UnUse;break;
+			case "cmfile":
+				Child = CmFile;break;
 			default:
 				Child = MaxFile;
 		}	
