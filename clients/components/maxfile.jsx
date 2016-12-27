@@ -10,7 +10,7 @@ class MaxFile extends React.Component{
 		this.state = {
 			loaded: false,
 			maxsize: 15,
-			data: {}
+			data: []
 		};
 	}
 	componentWillMount() {
@@ -24,36 +24,44 @@ class MaxFile extends React.Component{
 				url: "/api/all",
 				type: "GET",
 				success: function(data){
-
 					resolve(data);
 				},
 				error: function() {
 					reject();
 				}
 			});
-		}).then(function(data) {
-			var xData = [],
-	            yData = [];
-	        for (var $classify in data) {
-	            for (var $item in data[$classify]) {
-	                var size = parseInt(data[$classify][$item].filesize);
-	                if (size > maxsize) {
-	                    xData.push($classify + "/" + $item);
-	                    yData.push(size);
-	                }
-	            }
-	        }
-	        return {xData,yData};
-		}).then(function(obj){
-			self.setState({data: obj,loaded: true});
-			self._show_chart();
-		}).catch(function(err){
+		})
+		.then(function(data) {
+			self.setState({data: data},function(){
+				self._co_data();
+			});
+		})
+		.catch(function(err){
 			alert(err.message);
 		});
 	}
-	_show_chart() {
-		let obj = this.state.data,
-			maxsize = this.state.maxsize;
+	// 处理中间数据
+	_co_data() {
+		var data = this.state.data,
+			maxsize = this.state.maxsize,
+			xData = [],
+            yData = [];
+        console.info(data);
+        console.info(maxsize);
+        for (var $classify in data) {
+            for (var $item in data[$classify]) {
+                var size = parseInt(data[$classify][$item].filesize);
+                if (size > maxsize) {
+                    xData.push($classify + "/" + $item);
+                    yData.push(size);
+                }
+            }
+        }
+        this.setState({loaded: true});
+		this._show_chart({xData,yData});
+	}
+	_show_chart(obj) {
+		let maxsize = this.state.maxsize;
 		var maxChart = echarts.init(document.getElementById('maxsize'));
         var option = {
             title: {
@@ -75,6 +83,15 @@ class MaxFile extends React.Component{
         };
         maxChart.setOption(option);
 	}
+	click_rerender() {
+		let maxsize = parseFloat($("#txtMax").val().trim()),
+			self = this;
+		if(maxsize){
+			self.setState({maxsize: maxsize},function(){
+				self._co_data();
+			});
+		}
+	}
 	render() {
 		let dstyle = {
 			height: "400px"
@@ -82,7 +99,7 @@ class MaxFile extends React.Component{
 		return(
 			<div>
 				<input type="text" placeholder="输入文件最大值" id="txtMax" />
-			    <input type="button" value="Click me to rerender" id="change" />
+			    <input type="button" value="Click me to rerender" onClick={this.click_rerender.bind(this)} id="change" />
 			    <div id="maxsize" style={dstyle}></div>
 			</div>
 		)
