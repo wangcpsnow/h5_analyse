@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom';
 
 import MaxFile from "./components/maxfile.jsx"
-import ReqFile from "./components/reqfile.jsx"
+import NoReqFile from "./components/noreqfile.jsx"
 import UnUse from "./components/unuse.jsx"
 import CmFile from "./components/cmfile.jsx"
 
@@ -24,8 +24,8 @@ class Main extends React.Component{
 		switch(route){
 			case "maxfile":
 				Child = MaxFile;break;
-			case "reqfile":
-				Child = ReqFile;break;
+			case "noreqfile":
+				Child = NoReqFile;break;
 			case "unuse":
 				Child = UnUse;break;
 			case "cmfile":
@@ -38,7 +38,7 @@ class Main extends React.Component{
 				<nav>
 					<ul>
 				    	<li className={route=='maxfile' ? 'active' : ''} onClick={this.clickNav.bind(this,"maxfile")}>文件体积分析</li>
-				    	<li className={route=='reqfile' ? 'active' : ''} onClick={this.clickNav.bind(this,"reqfile")}>一次也没被引用的文件</li>
+				    	<li className={route=='noreqfile' ? 'active' : ''} onClick={this.clickNav.bind(this,"noreqfile")}>一次也没被引用的文件</li>
 				    	<li className={route=='unuse' ? 'active' : ''} onClick={this.clickNav.bind(this,"unuse")}>无用的公共组建</li>
 				    	<li className={route=='cmfile' ? 'active' : ''} onClick={this.clickNav.bind(this,"cmfile")}>公共组建分析图</li>
 				    </ul>
